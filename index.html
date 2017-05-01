@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JET FUELZ</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    <h1>JET FUELZ</h1>
+    <section>
+      <h2>Enter a URL to shorten that URL</h2>
+      <input id="long-url-input" type="text" />
+      <button> Shorten that biz </button>
+    </section>
+
+    <section>
+      <p>Here is the shorten URL!</p>
+    </section>
+
+    <section>
+      <p>Pick a folder</p>
+      <select id="link-folder-dropdown">
+        <option value="volvo">My Links</option>
+      </select>
+      <p>Here is the folder display of all the previous links!</p>
+
+      <section>
+        <article>
+          <p>Here is the short link</p>
+          <p>Here is the full URL</p>
+        </article>
+      </section>
+
+      <input type="text" id="new-folder-name"/>
+      <button onClick="addNewFolder()"> Add new folder </button>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
