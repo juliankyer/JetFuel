@@ -2,27 +2,32 @@
 <html>
   <head>
     <title>JET FUELZ</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
   <body>
-    <h1>JET FUELZ</h1>
-    <section>
+    <section class="main-input">
+      <h1><span>JET</span>FUELZ</h1>
       <h2>Enter a URL to shorten that URL</h2>
-      <input id="long-url-input" type="text" />
-      <button> Shorten that biz </button>
+      <form>
+        <input id="long-url-input" type="text" />
+        <button> Shorten that biz </button>
+        <select id="link-folder-dropdown">
+          <option value="my links">My Links</option>
+        </select>
+      </form>
     </section>
 
-    <section>
+    <section class="short-display">
       <p>Here is the shorten URL!</p>
+      <p>http://dumb.thisisdumb</p>
     </section>
 
     <section>
-      <p>Pick a folder</p>
-      <select id="link-folder-dropdown">
-        <option value="volvo">My Links</option>
-      </select>
-      <p>Here is the folder display of all the previous links!</p>
+      <!-- <p>Pick a folder</p>
+      <p>Here is the folder display of all the previous links!</p> -->
 
       <section>
         <article>
