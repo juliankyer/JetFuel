@@ -2,9 +2,10 @@ body, html {
   font-family: "Raleway", sans-serif;
 }
 
+/*HEADER*/
 h1 {
-  padding: 15px;
-  font-size: 35px;
+  padding: 10px 5px 5px;
+  font-size: 25px;
 }
 
 h1 span {
@@ -12,25 +13,52 @@ h1 span {
 }
 
 h2 {
-  padding: 10px;
-  font-size: 20px;
+  padding: 0px 5px 5px;
+  font-size: 15px;
 }
 
+/*FORM/INITIAL INPUT*/
+
 form {
-  padding: 15px;
+  padding: 15px 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+input, button, .select-style {
+  height: 17px;
 }
 
 input {
   box-sizing: border-box;
-  height: 25px;
+}
+
+input, .select-style {
+  width: 130px;
+}
+
+.dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
 }
 
 button {
   border: none;
   background-color: #507DBC;
   color: #FFFFFF;
-  font-size: 14px;
-  height: 25px;
+  width: 60px;
+}
+
+.link-label {
+  background-color: #A1C6EA;
+  color: #331E38;
+  height: 17px;
+  width: 60px;
+  font-size: 12px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .main-input {
@@ -43,11 +71,27 @@ button {
   background-color: #507DBC;
 }
 
-select {
-  border: 1px solid magenta;
+.select-style {
+  border-radius: 0px;
+  margin: 5px 0px 5px 5px;
+  /*border: 2px solid #507DBC;*/
+  overflow: hidden;
+  background-color: #FFFFFF;
+  height: 17px;
+  width: 130px;
 }
 
-.short-display {
+.select-style select {
+  /*padding: 5px 8px;*/
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+/*.short-display {
   height: 50px;
   padding: 10px;
   display: flex;
@@ -58,7 +102,7 @@ select {
 
 .short-display p {
   color: #ffffff;
-}
+}*/
 
 
 

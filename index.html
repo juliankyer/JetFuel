@@ -7,38 +7,48 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
+  
   <body>
     <section class="main-input">
-      <h1><span>JET</span>FUELZ</h1>
-      <h2>Enter a URL to shorten that URL</h2>
+      <h1><span>JET</span>FUEL</h1>
+      <h2>Shorten that URL</h2>
+      
       <form>
-        <input id="long-url-input" type="text" />
-        <button> Shorten that biz </button>
-        <select id="link-folder-dropdown">
-          <option value="my links">My Links</option>
-        </select>
+        <div>
+          <input id="long-url-input" type="text" />
+          <button>Shrink It!</button>
+        </div>
+        <div class="dropdown-wrapper">
+        <button disabled="true" class="link-label">Folder:</button>
+          <div class="select-style">
+            <select id="link-folder-dropdown">
+              <option value="my links">My Links</option>
+              <option value="my links">My Links</option>
+              <option value="my links">My Links</option>
+              <option value="my links">My Links</option>
+              <option value="my links">My Links</option>
+            </select>
+          </div>
+      </div>
+        <div class="input-wrapper">
+          <input type="text" id="new-folder-name"/>
+          <button onClick="addNewFolder()">+ Folder</button>
+      </div>
       </form>
+      
     </section>
 
-    <section class="short-display">
+    <!-- <section class="short-display">
       <p>Here is the shorten URL!</p>
       <p>http://dumb.thisisdumb</p>
     </section>
-
-    <section>
-      <!-- <p>Pick a folder</p>
-      <p>Here is the folder display of all the previous links!</p> -->
 
       <section>
         <article>
           <p>Here is the short link</p>
           <p>Here is the full URL</p>
         </article>
-      </section>
-
-      <input type="text" id="new-folder-name"/>
-      <button onClick="addNewFolder()"> Add new folder </button>
-    </section>
+      </section> -->
 
     <script src="index.js"></script>
   </body>
