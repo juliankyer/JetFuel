@@ -9,9 +9,7 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Jet Fuel';
 
-const FakeDB = {
-  folders: []
-}
+app.locals.folders = []
 
 
 app.get('/', (request, response) => {
@@ -29,16 +27,11 @@ app.get('/', (request, response) => {
 //app.post to add Folder
 app.post('/api/folders', (request, response) => {
   const { folderName } = request.body
-  // check if folder exists
-  if(!FakeDB.folders.find(folderName)) {
-    FakeDB.folders.append(folderName)
-    // idea: send ALL in a list of folder names and front end 
-    response.json({ folderName: folderName })
-  }
-  // response.code('already there code')
+  // check if folder exists - no need to on server, checking locally now.
   // make new folder in DB, make new ID
+  app.locals.folders.push(folderName)
   // return info if successful
-  console.log(request.body)
+  response.json({ folderName: folderName })
 
 })
 

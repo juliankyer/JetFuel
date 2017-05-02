@@ -8,6 +8,8 @@ $('#add-folder-btn').on('click', function(e) {
   })
 
   if(currentOptions.indexOf(newFolderName) < 0) {
+    console.log('in the if');
+
     fetch('/api/folders', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
