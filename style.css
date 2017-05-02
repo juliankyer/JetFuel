@@ -110,6 +110,7 @@ button {
 
 .browse-folders {
   border-radius: 0px;
+  border: 2px solid #331E38;
   margin: 10px auto;
   overflow: hidden;
   background: #FFFFFF url('./images/down-arrow.svg') no-repeat 90%;
@@ -135,8 +136,9 @@ button {
   border-top: 2px solid #331E38;
   border-bottom: 2px solid #331E38;
   background-color: #FFFFFF;
-  margin-top: 10px;
+  margin: 15px auto;
   padding: 5px;
+  width: 80%;
 }
 
 .link-card a {
