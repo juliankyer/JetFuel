@@ -115,7 +115,7 @@ button {
   overflow: hidden;
   background: #FFFFFF url('./images/down-arrow.svg') no-repeat 90%;
   height: 22px;
-  width: 270px;
+  width: 81%;
 }
 
 .browse-folders select {
