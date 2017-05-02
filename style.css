@@ -1,5 +1,6 @@
 body, html {
   font-family: "Raleway", sans-serif;
+  background-color: #A1C6EA;
 }
 
 /*HEADER*/
@@ -95,11 +96,42 @@ button {
   color: #ffffff;
 }*/
 
-/*LINK CARD*/
-.folder {
-  background-color: #A1C6EA;
+/*BROWSE FOLDER*/
+.browse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.browse h3 {
+  margin: 15px 5px 5px;
+  font-weight: 600;
+}
+
+.browse-folders {
+  border-radius: 0px;
+  margin: 10px auto;
+  overflow: hidden;
+  background: #FFFFFF url('./images/down-arrow.svg') no-repeat 90%;
+  height: 22px;
+  width: 270px;
+}
+
+.browse-folders select {
+  padding: 0px 6px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+/*LINK CARD*/
+
 .link-card {
+  display: flex;
+  flex-direction: column;
   border-top: 2px solid #331E38;
   border-bottom: 2px solid #331E38;
   background-color: #FFFFFF;
@@ -115,6 +147,7 @@ button {
 .link-card div {
   display: flex;
   justify-content: space-between;
+  margin: 5px;
 }
 
 
