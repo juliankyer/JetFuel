@@ -25,22 +25,19 @@ form {
   flex-direction: column;
 }
 
-input, button, .select-style {
-  height: 17px;
-}
-
-input {
+input, button, .select-style, .link-label {
+  height: 22px;
   box-sizing: border-box;
 }
 
 input, .select-style {
-  width: 130px;
+  width: 180px;
 }
 
 .dropdown-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: 5px;
 }
 
@@ -48,14 +45,13 @@ button {
   border: none;
   background-color: #507DBC;
   color: #FFFFFF;
-  width: 60px;
+  width: 80px;
 }
 
 .link-label {
   background-color: #A1C6EA;
   color: #331E38;
-  height: 17px;
-  width: 60px;
+  width: 80px;
   font-size: 12px;
   margin: 0px;
   padding: 0px;
@@ -67,22 +63,17 @@ button {
   text-align: center;
 }
 
-.short-display {
-  background-color: #507DBC;
-}
-
 .select-style {
   border-radius: 0px;
   margin: 5px 0px 5px 5px;
-  /*border: 2px solid #507DBC;*/
   overflow: hidden;
-  background-color: #FFFFFF;
-  height: 17px;
-  width: 130px;
+  background: #FFFFFF url('./images/down-arrow.svg') no-repeat 90%;
+  height: 22px;
+  width: 180px;
 }
 
 .select-style select {
-  /*padding: 5px 8px;*/
+  padding: 0px 6px;
   width: 130%;
   border: none;
   box-shadow: none;
@@ -103,6 +94,28 @@ button {
 .short-display p {
   color: #ffffff;
 }*/
+
+/*LINK CARD*/
+.folder {
+  background-color: #A1C6EA;
+}
+.link-card {
+  border-top: 2px solid #331E38;
+  border-bottom: 2px solid #331E38;
+  background-color: #FFFFFF;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.link-card a {
+  margin: 5px;
+  
+}
+
+.link-card div {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 
