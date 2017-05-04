@@ -28,7 +28,7 @@ const addURL = () => {
   const newURL = $('#long-url-input').val();
   const folderID = $('#link-folder-dropdown').val();
   //validation?
-  fetch('/api/v1/links', {
+  return fetch('/api/v1/links', {
     method: "POST",
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify({
@@ -56,7 +56,7 @@ const refreshLinkDisplay = (folderID) => {
         json.forEach((link) => {
           $('.link-wrapper').prepend(`
             <article class="link-card">
-            <a href="${link.longURL}" target="_blank">${link.longURL}</a>
+            <p>${link.longURL}</p>
             <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
             <div>
             <p>Added 5/1/2017</p>
@@ -77,9 +77,9 @@ $('#add-folder-btn').on('click', function(e) {
 $('#add-url').on('click', function(e) {
   const folderID = $('#link-folder-dropdown').val();
   e.preventDefault();
-  addURL();
-  refreshLinkDisplay(folderID);
-})
+  addURL()
+    .then(() => refreshLinkDisplay(folderID));
+});
 
 $('#link-folder-dropdown').on('change', function(e)  {
   const folderID = e.target.value
