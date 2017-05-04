@@ -15,7 +15,7 @@ $('#add-folder-btn').on('click', function(e) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(
         {
-          folderName: $('#new-folder-name').val(),
+          name: $('#new-folder-name').val(),
           // folderID
         }
       )

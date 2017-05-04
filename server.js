@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+
+const environment = 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration)
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -9,7 +14,7 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Jet Fuel';
 
-app.locals.folders = []
+// app.locals.folders = []
 
 
 app.get('/', (request, response) => {
@@ -25,13 +30,18 @@ app.get('/', (request, response) => {
 });
 
 // app.post to add Folder
-app.post('/api/folders', (request, response) => {
-  const { folderName } = request.body
+app.post('/api/v1/folders', (request, response) => {
+  const folderInfo = request.body
+
+  database('folders').insert(folderInfo, ['id', 'name'])
+  .then(folder => {
+    response.status(201).json( folder[0] )
+  })
+
   // check if folder exists - no need to on server, checking locally now.
   // make new folder in DB, make new ID
-  app.locals.folders.push(folderName)
+  // app.locals.folders.push(folderName)
   // return info if successful
-  response.json({ folderName: folderName })
 
 })
 
