@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       table.string('shortURL');
       table.integer('clicks');
       
-      table.integer('folder_id').unsigned()
+      table.integer('folder_id').unsigned();
       table.foreign('folder_id').references('folders.id');
       
       table.timestamps();
@@ -28,3 +28,4 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('links')
   ]);
 };
+
