@@ -58,13 +58,11 @@ app.post('/api/v1/links', (request, response) => {
     console.log(id);
     response.status(201).json(id)
   })
-
-
 })
 
 app.get('/api/v1/folders/:folderID', (request, response) => {
   const { folderID } = request.params
-
+console.log(folderID)
   database('links').where('folder_id', folderID).select()
     .then(links => {
       response.status(200).json(links)

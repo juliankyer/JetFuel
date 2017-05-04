@@ -75,10 +75,12 @@ $('#add-url').on('click', function(e) {
 
 $('#link-folder-dropdown').on('change', function(e)  {
   const folderID = e.target.value
+  console.log(folderID)
 
-  fetch('/api/v1/folders/:folderID')
+  fetch(`/api/v1/folders/${folderID}`)
     .then((response) => {
-      response.json((json) => {
+      console.log(response)
+      response.json().then((json) => {
         console.log(json)
       })
     })
