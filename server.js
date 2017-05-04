@@ -45,13 +45,21 @@ app.post('/api/v1/folders', (request, response) => {
 
 })
 
-//app.post to add URL
 
-app.post('api/folders/:folderID', (request, response) => {
-  const { newURL } = request.body
-  let shortURL, date, clickTotal
-  //make the short guy
-  response.json({ shortURL, newURL, date, clickTotal })
+app.post('/api/v1/links', (request, response) => {
+  const { folderID, newURL } = request.body
+  console.log(folderID, newURL);
+  database('links').insert({
+    longURL: newURL,
+    shortURL: null,
+    clicks: 0,
+    folder_id: folderID,
+  }, 'id').then((id) => {
+    console.log(id);
+    response.status(201).json(id)
+  })
+
+
 })
 
 
