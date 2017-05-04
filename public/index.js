@@ -82,6 +82,19 @@ $('#link-folder-dropdown').on('change', function(e)  {
       console.log(response)
       response.json().then((json) => {
         console.log(json)
+        $('.link-wrapper').empty()
+        json.forEach((link) => {
+          $('.link-wrapper').prepend(`
+            <article class="link-card">
+            <a href="${link.longURL}" target="_blank">${link.longURL}</a>
+            <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
+            <div>
+            <p>Added 5/1/2017</p>
+            <p>${link.clicks} Visits</p>
+            </div>
+            </article>
+            `)
+        })
       })
     })
 })

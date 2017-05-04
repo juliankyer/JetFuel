@@ -85,6 +85,23 @@ app.get('/api/v1/folders', (request, response) => {
 })
 
 
+app.get('/:shortID', (request, response) => {
+  const { shortID } = request.params
+  console.log('here short id',  shortID)
+  const actualID = parseInt(shortID, 32)
+  console.log('here is post parseInt ID', actualID)
+
+
+  database('links').where('id', actualID).select()
+    .then((link) => {
+      console.log(link)
+      const url = link[0].longURL
+      console.log('here the full link', url)
+      response.redirect('http://' + url)
+      /// May need to revist the text input handling here
+    })
+})
+
 
 
 app.listen(app.get('port'), () => {
