@@ -62,6 +62,30 @@ app.post('/api/v1/links', (request, response) => {
 
 })
 
+app.get('/api/v1/folders/:folderID', (request, response) => {
+  const { folderID } = request.params
+
+  database('links').where('folder_id', folderID).select()
+    .then(links => {
+      response.status(200).json(links)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+})
+
+app.get('/api/v1/folders', (request, response) => {
+  console.log('give client all the folders!')
+  database('folders').select()
+    .then(folders => {
+      console.log(folders)
+      response.status(200).json(folders)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+})
+
 
 
 

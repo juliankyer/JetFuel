@@ -45,13 +45,22 @@ const addURL = () => {
       folderID
     })
   }).then((response) => {
-    console.log(response);
+    response.json().then((json) => {
+      console.log(json[0]);
+      const linkID = json[0]
+    })
+    ////
   })
 }
 
+/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
 const convertIdToUrl = (id) => {
   const urlBase = 'http://localhost:3000/'
   return urlBase + id.toString(32)
+}
+
+const refreshLinkDisplay = (folderID) => {
+
 }
 
 $('#add-folder-btn').on('click', function(e) {
@@ -63,4 +72,35 @@ $('#add-url').on('click', function(e) {
   e.preventDefault();
   addURL();
 })
+
+$('#link-folder-dropdown').on('change', function(e)  {
+  const folderID = e.target.value
+
+  fetch('/api/v1/folders/:folderID')
+    .then((response) => {
+      response.json((json) => {
+        console.log(json)
+      })
+    })
+})
+
+const populateFolderOptions = (options) => {
+  console.log('in the pop', options)
+  const select = $('#link-folder-dropdown')
+  options.forEach((folder) => {
+    select.append(`<option value=${folder.id}>${folder.name}</option>`)
+  })
+}
+
+$(document).ready(() => {
+  console.log('doc is read')
+  fetch('/api/v1/folders')
+    .then((response) => {
+      console.log(response)
+      response.json().then(json => {
+        populateFolderOptions(json)
+      })
+    })
+})
+
 
