@@ -37,9 +37,27 @@ app.post('/api/folders', (request, response) => {
 
 //app.post to add URL
 
+app.post('api/folders/:folderID', (request, response) => {
+  const { newURL } = request.body
+  let shortURL, date, clickTotal
+  //make the short guy
+  response.json({ shortURL, newURL, date, clickTotal })
+})
+
 //app.get to retrieve Folder and contents
 
+app.get()
+
 //app.get to use link
+app.get('/:shorty', (request, response) => {
+  // Get the full URL data from DB
+  // increment link count?
+  //redirect to full URL
+  //have a ice day
+})
+
+//patch in click increments
+app.patch('')
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
