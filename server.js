@@ -13,18 +13,18 @@ app.locals.folders = []
 
 
 app.get('/', (request, response) => {
-  if (! `${__dirname}/index.html`) {
+  if (! `${__dirname}/public/index.html`) {
     return response.status(404).send({
       error: 'File not found'
     })
   }
 
-  fs.readFile(`${__dirname}/index.html`, (err, file) => {
+  fs.readFile(`${__dirname}/public/index.html`, (err, file) => {
     response.send(file)
   });
 });
 
-//app.post to add Folder
+// app.post to add Folder
 app.post('/api/folders', (request, response) => {
   const { folderName } = request.body
   // check if folder exists - no need to on server, checking locally now.
@@ -44,20 +44,8 @@ app.post('api/folders/:folderID', (request, response) => {
   response.json({ shortURL, newURL, date, clickTotal })
 })
 
-//app.get to retrieve Folder and contents
 
-app.get()
 
-//app.get to use link
-app.get('/:shorty', (request, response) => {
-  // Get the full URL data from DB
-  // increment link count?
-  //redirect to full URL
-  //have a ice day
-})
-
-//patch in click increments
-app.patch('')
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
