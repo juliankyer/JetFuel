@@ -10,7 +10,7 @@ $('#add-folder-btn').on('click', function(e) {
   if(currentOptions.indexOf(newFolderName) < 0) {
     console.log('in the if');
 
-    fetch('/api/folders', {
+    fetch('/api/v1/folders', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(
@@ -22,7 +22,7 @@ $('#add-folder-btn').on('click', function(e) {
     }).then((response) => {
       response.json().then((data) => {
         console.log(data);
-        $('#link-folder-dropdown').append(`<option>${data.folderName}</option>`);
+        $('#link-folder-dropdown').append(`<option value=${data.id}>${data.name}</option>`);
 
       })
     }).catch(err => console.log(err))
