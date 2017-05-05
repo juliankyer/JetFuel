@@ -35,6 +35,18 @@ input, .select-style {
   width: 180px;
 }
 
+.secondary-inputs {
+  background-color: #DAE3E5;
+  /*margin: 5px;*/
+  padding: 5px 5px 10px;
+  margin: 20px auto 5px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .dropdown-wrapper {
   display: flex;
   align-items: center;
