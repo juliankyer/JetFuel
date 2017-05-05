@@ -118,6 +118,10 @@ button {
   font-weight: 600;
 }
 
+.sort-button {
+  display: inline-block;
+  margin: 5px;
+}
 
 /*LINK CARD*/
 
@@ -134,7 +138,7 @@ button {
 
 .link-card a {
   margin: 5px;
-  
+
 }
 
 .link-card div {
