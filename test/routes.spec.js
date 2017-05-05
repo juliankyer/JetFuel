@@ -73,4 +73,8 @@ describe('API routes', () => {
     });
   });
   
+  describe('click events', () => {
+    
+  });
+  
 });
