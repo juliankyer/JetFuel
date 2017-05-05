@@ -90,7 +90,7 @@ app.get('/:shortID', (request, response) => {
         .where('id', actualID)
         .update('clicks', newCount)
         .catch((error) => {
-          console.log(error);
+          console.log(error); 
         })
     })
 })

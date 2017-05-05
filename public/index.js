@@ -1,4 +1,5 @@
 
+/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
 const addFolder = () => {
   const newFolderName = $('#new-folder-name').val();
   const currentOptions = $('#link-folder-dropdown').children().toArray().map(item => {
@@ -42,7 +43,6 @@ const addURL = () => {
   })
 }
 
-/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
 const convertIdToUrl = (id) => {
   const urlBase = 'http://localhost:3000/';
   return urlBase + id.toString(32);
@@ -55,7 +55,7 @@ const refreshLinkDisplay = (folderID) => {
         $('.link-wrapper').empty()
         json.forEach((link) => {
           $('.link-wrapper').prepend(`
-            <article class="link-card">
+            <article class="link-card" clicks="${link.clicks}">
             <p>${link.longURL}</p>
             <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
             <div>
@@ -68,6 +68,13 @@ const refreshLinkDisplay = (folderID) => {
       })
     })
 };
+
+const populateFolderOptions = (options) => {
+  const select = $('#link-folder-dropdown');
+  options.forEach((folder) => {
+    select.append(`<option value=${folder.id}>${folder.name}</option>`)
+  });
+}
 
 $('#add-folder-btn').on('click', function(e) {
   e.preventDefault();
@@ -86,12 +93,23 @@ $('#link-folder-dropdown').on('change', function(e)  {
   refreshLinkDisplay(folderID);
 });
 
-const populateFolderOptions = (options) => {
-  const select = $('#link-folder-dropdown');
-  options.forEach((folder) => {
-    select.append(`<option value=${folder.id}>${folder.name}</option>`)
-  });
-}
+$('#sort-clicks').on('click', () => {
+  console.log('sorting by clicks now')
+  const kids= $('.link-wrapper').children()
+  $('.link-wrapper').empty()
+
+  kids.sort((a, b) => {
+    console.log($(a)[0].attributes.clicks.value, b)
+    return $(a)[0].attributes.clicks.value > $(b)[0].attributes.clicks.value
+  })
+  // console.log(kids)
+
+
+  kids.each(function () {
+    console.log(this)
+    $('.link-wrapper').prepend(this)
+  })
+})
 
 $(document).ready(() => {
   fetch('/api/v1/folders')
@@ -99,6 +117,9 @@ $(document).ready(() => {
       response.json()
       .then(json => {
         populateFolderOptions(json)
+      })
+      .then(() => {
+        refreshLinkDisplay($('#link-folder-dropdown').val())
       })
     });
 });
