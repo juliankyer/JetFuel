@@ -42,7 +42,6 @@ app.post('/api/v1/links', (request, response) => {
   const { folderID, newURL } = request.body
   database('links').insert({
     longURL: newURL,
-    shortURL: null,
     clicks: 0,
     folder_id: folderID,
   }, 'id').then((id) => {
@@ -83,7 +82,7 @@ app.get('/:shortID', (request, response) => {
       response.redirect('http://' + url)
       /// May need to revist the text input handling here
     })
-    
+
   database('links').where('id', actualID).select()
     .then((link) => {
       let newCount = link[0].clicks + 1;
