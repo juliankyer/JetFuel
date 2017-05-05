@@ -2,12 +2,16 @@ const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../server');
+require('locus');
+
+const knexConfig = require('../knexfile.js')['development']
+const knex = require('knex')(knexConfig)
 
 chai.use(chaiHttp);
 
 describe('Client routes', () => {
   //pass
-  it.skip('should return the homepage', (done) => {
+  it('should return the homepage', (done) => {
     chai.request(server)
       .get('/')
       .end((error, response) => {
@@ -16,8 +20,8 @@ describe('Client routes', () => {
         done();
       });
   });
-  
-  it.skip('should return a 404 for a non-existent route', (done) => {
+
+  it('should return a 404 for a non-existent route', (done) => {
     //this should work but is hitting timeout
     chai.request(server)
       .get('/nope')
@@ -29,19 +33,34 @@ describe('Client routes', () => {
 });
 
 describe('API routes', () => {
-  before((done) => {
-    
-    done();
+  beforeEach((done) => {
+    console.log('###########before each')
+    //wipe and re-seed DB
+    knex.migrate.rollback()
+     .then(function() {
+       knex.migrate.latest()
+       .then(function() {
+         return knex.seed.run()
+         .then(function() {
+           done();
+         });
+       });
+     });
   });
-  
+
   afterEach((done) => {
-    
-    done();
+    //wipe and re-seed DB
+    // console.log('########### after each')
+
+    knex.migrate.rollback()
+      .then(function() {
+        done();
+      });
   });
-  
+
   describe('GET /api/v1/folders', () => {
     //pass
-    it.skip('should return all of the folders', (done) => {
+    it('should return all of the folders', (done) => {
       chai.request(server)
         .get('/api/v1/folders')
         .end((error, response) => {
@@ -49,15 +68,15 @@ describe('API routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
-          
+
           done();
         });
     });
   });
-  
+
   describe('POST /api/v1/folders', () => {
     //pass but needs to be more robust
-    it.skip('should create a new folder', (done) => {
+    it('should create a new folder', (done) => {
       chai.request(server)
         .post('/api/v1/folders')
         .send({
@@ -77,56 +96,53 @@ describe('API routes', () => {
               response.body.should.be.a('array');
               response.body[0].should.have.property('name');
               response.body[0].should.have.property('id');
-              
+
               done();
             });
         });
     });
-    
-    it.skip('should not create a new folder if that folder already exists', () => {
-      
-    });    
+
   });
-  
-  describe('POST /api/v1/links', () => {
+
+  describe('POST /api/v1/links', function () {
     //fail
-    it.skip('should create a new link record', (done) => {
+    // future self, here is how to bypass mocha timeout crap, allows for locus
+    this.timeout(150000000)
+    it('should create a new link record', (done) => {
+      ///put back DONE
       chai.request(server)
         .post('/api/v1/links')
-        .send({
-          longURL: 'www.google.com',
-          // clicks: 0,
-          // folder_id: 1
-        })
+        .send(
+              {
+                newURL: 'www.google.com',
+                folderID: 1
+              }
+            )
         .end((error, response) => {
+          //Checking that the link id is 3 because there's already 2 links seeded
           response.should.have.status(201);
           response.body.should.be.a('array');
           //fails here
-          response.body.should.have.property('longURL');
-          response.body.should.have.property('clicks');
-          response.body.should.have.property('folder_id');
-          response.body.longURL.should.equal('www.google.com');
-          response.body.clicks.should.equal(0);
-          response.body.folder_id.should.equal(1);
+          response.body[0].should.equal(3);
           chai.request(server)
-            .get('/api/v1/links')
+            .get('/api/v1/folders/1')
             .end((error, response) => {
               response.should.have.status(200);
               response.should.be.json;
               response.body.should.be.a('array');
-              response.body.length.should.equal(1);
-              response.body[0].should.have.property('longURL');
-              response.body[0].should.have.property('clicks');
-              response.body[0].should.have.property('folder_id');
-              response.body[0].longURL.should.equal('www.google.com');
-              response.body[0].clicks.should.equal(0);
-              response.body[0].folder_id.should.equal(1);
+              response.body.length.should.equal(3);
+              response.body[2].should.have.property('longURL');
+              response.body[2].should.have.property('clicks');
+              response.body[2].should.have.property('folder_id');
+              response.body[2].longURL.should.equal('www.google.com');
+              response.body[2].clicks.should.equal(0);
+              response.body[2].folder_id.should.equal(1);
               done();
             });
         });
     });
-    
-    it.skip('should not create a new link with missing data', () => {
+
+    it('should not create a new link with missing data', (done) => {
       //fails
       chai.request(server)
         .post('/api/v1/links')
@@ -135,17 +151,12 @@ describe('API routes', () => {
         })
         .end((error, response) => {
           //returns a 422
+          console.log(response.error.text)
           response.should.have.status(422);
-          response.body.error.should.equal('Missing url');
+          response.error.text.should.equal('Missing url');
           done();
         });
     });
   });
-  
-  describe('click events', () => {
-    it.skip('should handle some clicks', () => {
-      
-    });
-  });
-  
+
 });

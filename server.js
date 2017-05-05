@@ -40,16 +40,20 @@ app.post('/api/v1/folders', (request, response) => {
 
 app.post('/api/v1/links', (request, response) => {
   const { folderID, newURL } = request.body
-  database('links').insert({
-    longURL: newURL,
-    clicks: 0,
-    folder_id: folderID,
-  }, 'id').then((id) => {
-    response.status(201).json(id)
-  })
-  .catch((error) => {
-    console.log('WE NEED  A BETTER ERROR');
-  });
+  if (newURL) {
+    database('links').insert({
+      longURL: newURL,
+      clicks: 0,
+      folder_id: folderID,
+    }, 'id').then((id) => {
+      response.status(201).json(id)
+    })
+    .catch((error) => {
+      console.log('WE NEED  A BETTER ERROR');
+    });
+  } else {
+    response.status(422).send('Missing url')
+  }
 });
 
 app.get('/api/v1/folders/:folderID', (request, response) => {
@@ -84,18 +88,19 @@ app.get('/:shortID', (request, response) => {
       const url = link[0].longURL
       response.redirect('http://' + url)
       /// May need to revist the text input handling here
-    })
-
-  database('links').where('id', actualID).select()
-    .then((link) => {
       let newCount = link[0].clicks + 1;
       database('links')
         .where('id', actualID)
         .update('clicks', newCount)
         .catch((error) => {
+          //knex bug fix
           console.log(error);
         })
     })
+    .catch(error => {
+      response.status(404).send('Not Found')
+    })
+
 })
 
 app.listen(app.get('port'), () => {

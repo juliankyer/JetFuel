@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
         .then(folder => {
           return knex('links').insert([
             {
-              longURL: 'www.google.com',
+              longURL: 'www.fakesite.com',
               clicks: 0,
               folder_id: folder[0]
             },
