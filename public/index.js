@@ -43,8 +43,7 @@ const addURL = () => {
 }
 
 const convertIdToUrl = (id) => {
-  const urlBase = 'http://localhost:3000/';
-  return urlBase + id.toString(32);
+  return '/' + id.toString(32);
 }
 
 const splitDate = (date) => {
@@ -66,7 +65,7 @@ const refreshLinkDisplay = (folderID) => {
           $('.link-wrapper').prepend(`
             <article class="link-card" clicks="${link.clicks}">
             <p>${link.longURL}</p>
-            <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
+            <a href="${convertIdToUrl(link.id)}" target="_blank">${window.location.hostname + convertIdToUrl(link.id)}</a>
             <div>
             <p class="date-added">Added ${splitDate(link.created_at)}</p>
             <p>${link.clicks} Visits</p>
@@ -101,19 +100,6 @@ $('#link-folder-dropdown').on('change', function(e)  {
   const folderID = e.target.value
   refreshLinkDisplay(folderID);
 });
-
-$('#sort-clicks').on('click', () => {
-  const kids= $('.link-wrapper').children()
-  $('.link-wrapper').empty()
-
-  kids.sort((a, b) => {
-    return $(a)[0].attributes.clicks.value > $(b)[0].attributes.clicks.value
-  })
-
-  kids.each(function () {
-    $('.link-wrapper').prepend(this)
-  })
-})
 
 $('#sort-clicks').on('click', () => {
   const kids= $('.link-wrapper').children()
