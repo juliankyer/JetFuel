@@ -46,6 +46,9 @@ app.post('/api/v1/links', (request, response) => {
     folder_id: folderID,
   }, 'id').then((id) => {
     response.status(201).json(id)
+  })
+  .catch((error) => {
+    console.log('WE NEED  A BETTER ERROR');
   });
 });
 
@@ -98,3 +101,5 @@ app.get('/:shortID', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
+
+module.exports = app;
