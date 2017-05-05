@@ -114,19 +114,6 @@ $('#sort-clicks').on('click', () => {
   })
 })
 
-$('#sort-clicks').on('click', () => {
-  const kids= $('.link-wrapper').children()
-  $('.link-wrapper').empty()
-
-  kids.sort((a, b) => {
-    return $(a)[0].attributes.clicks.value > $(b)[0].attributes.clicks.value
-  })
-
-  kids.each(function () {
-    $('.link-wrapper').prepend(this)
-  })
-})
-
 $('#sort-date').on('click', () => {
   const kids= $('.link-wrapper').children()
   $('.link-wrapper').empty()
