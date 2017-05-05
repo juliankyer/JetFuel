@@ -29,53 +29,53 @@ describe('Client routes', () => {
   });
 });
 
-// describe('API routes', () => {
-//   before((done) => {
-//     
-//     done();
-//   });
-//   
-//   afterEach((done) => {
-//     
-//     done();
-//   });
-//   
-//   describe('GET /api/v1/folders', () => {
-//     it('should return all of the folders', (done) => {
-//       chai.request(server)
-//         .get('/api/v1/students')
-//         .end((error, response) => {
-//           response.shouldhave.status(200);
-//           
-//           done();
-//         });
-//     });
-//   });
-//   
-//   describe('POST /api/v1/folders', () => {
-//     it('should create a new folder', (done) => {
-//       
-//     });
-//     
-//     it('should not create a new folder if that folder already exists', () => {
-//       
-//     });    
-//   });
-//   
-//   describe('POST /api/v1/links', () => {
-//     it('should create a new link', () => {
-//       
-//     });
-//     
-//     it('should not create a new link with missing data', () => {
-//       
-//     });
-//   });
-//   
-//   describe('click events', () => {
-//     it('should handle some clicks', () => {
-//       
-//     });
-//   });
+describe('API routes', () => {
+  before((done) => {
+    
+    done();
+  });
   
-// });
+  afterEach((done) => {
+    
+    done();
+  });
+  
+  describe('GET /api/v1/folders', () => {
+    it('should return all of the folders', (done) => {
+      chai.request(server)
+        .get('/api/v1/students')
+        .end((error, response) => {
+          response.shouldhave.status(200);
+          
+          done();
+        });
+    });
+  });
+  
+  describe('POST /api/v1/folders', () => {
+    it('should create a new folder', (done) => {
+      
+    });
+    
+    it('should not create a new folder if that folder already exists', () => {
+      
+    });    
+  });
+  
+  describe('POST /api/v1/links', () => {
+    it('should create a new link', () => {
+      
+    });
+    
+    it('should not create a new link with missing data', () => {
+      
+    });
+  });
+  
+  describe('click events', () => {
+    it('should handle some clicks', () => {
+      
+    });
+  });
+  
+});
