@@ -1,5 +1,3 @@
-/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
-
 const addFolder = () => {
   const newFolderName = $('#new-folder-name').val();
   const currentOptions = $('#link-folder-dropdown').children().toArray().map(item => {
@@ -19,15 +17,12 @@ const addFolder = () => {
         $('#link-folder-dropdown').append(`<option value=${data.id}>${data.name}</option>`);
       })
     }).catch(err => console.log(err))
-  } else {
-    //come back to this
   }
 }
 
 const addURL = () => {
   const newURL = $('#long-url-input').val();
   const folderID = $('#link-folder-dropdown').val();
-  //validation?
   return fetch('/api/v1/links', {
     method: "POST",
     headers: { "Content-Type": "application/json"},
@@ -121,15 +116,14 @@ $('#sort-date').on('click', () => {
   kids.sort((a, b) => {
     const aDateArray = $(a).find('.date-added').text().split(' ')[1].split('/')
     const bDateArray = $(b).find('.date-added').text().split(' ')[1].split('/')
-    //year sortable?
     if(aDateArray[2] > bDateArray[2]) {
       return true
     }
-    //month sortable?
+
     if(aDateArray[0] > bDateArray[0]) {
       return true
     }
-    //day sortable?
+
     if(aDateArray[1] > bDateArray[1]) {
       return true
     }

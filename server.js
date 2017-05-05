@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
-const database = require('knex')(configuration)
+const database = require('knex')(configuration);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,7 +27,6 @@ app.get('/', (request, response) => {
   });
 });
 
-// app.post to add Folder
 app.post('/api/v1/folders', (request, response) => {
   const folderInfo = request.body
 
@@ -49,7 +48,7 @@ app.post('/api/v1/links', (request, response) => {
       response.status(201).json(id)
     })
     .catch((error) => {
-      console.log('WE NEED  A BETTER ERROR');
+      console.log('Error');
     });
   } else {
     response.status(422).send('Missing url')
@@ -87,13 +86,11 @@ app.get('/:shortID', (request, response) => {
     .then((link) => {
       const url = link[0].longURL
       response.redirect('http://' + url)
-      /// May need to revist the text input handling here
       let newCount = link[0].clicks + 1;
       database('links')
         .where('id', actualID)
         .update('clicks', newCount)
         .catch((error) => {
-          //knex bug fix
           console.log(error);
         })
     })

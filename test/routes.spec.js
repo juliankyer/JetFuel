@@ -10,7 +10,6 @@ const knex = require('knex')(knexConfig)
 chai.use(chaiHttp);
 
 describe('Client routes', () => {
-  //pass
   it('should return the homepage', (done) => {
     chai.request(server)
       .get('/')
@@ -22,7 +21,6 @@ describe('Client routes', () => {
   });
 
   it('should return a 404 for a non-existent route', (done) => {
-    //this should work but is hitting timeout
     chai.request(server)
       .get('/nope')
       .end((error, response) => {
@@ -34,8 +32,6 @@ describe('Client routes', () => {
 
 describe('API routes', () => {
   beforeEach((done) => {
-    console.log('###########before each')
-    //wipe and re-seed DB
     knex.migrate.rollback()
      .then(function() {
        knex.migrate.latest()
@@ -49,9 +45,6 @@ describe('API routes', () => {
   });
 
   afterEach((done) => {
-    //wipe and re-seed DB
-    // console.log('########### after each')
-
     knex.migrate.rollback()
       .then(function() {
         done();
@@ -59,12 +52,10 @@ describe('API routes', () => {
   });
 
   describe('GET /api/v1/folders', () => {
-    //pass
     it('should return all of the folders', (done) => {
       chai.request(server)
         .get('/api/v1/folders')
         .end((error, response) => {
-          //why isn't this a 201 ?
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
@@ -75,7 +66,6 @@ describe('API routes', () => {
   });
 
   describe('POST /api/v1/folders', () => {
-    //pass but needs to be more robust
     it('should create a new folder', (done) => {
       chai.request(server)
         .post('/api/v1/folders')
@@ -105,11 +95,9 @@ describe('API routes', () => {
   });
 
   describe('POST /api/v1/links', function () {
-    //fail
-    // future self, here is how to bypass mocha timeout crap, allows for locus
-    this.timeout(150000000)
+    this.timeout(150000000);
+    
     it('should create a new link record', (done) => {
-      ///put back DONE
       chai.request(server)
         .post('/api/v1/links')
         .send(
@@ -119,10 +107,8 @@ describe('API routes', () => {
               }
             )
         .end((error, response) => {
-          //Checking that the link id is 3 because there's already 2 links seeded
           response.should.have.status(201);
           response.body.should.be.a('array');
-          //fails here
           response.body[0].should.equal(3);
           chai.request(server)
             .get('/api/v1/folders/1')
@@ -143,14 +129,12 @@ describe('API routes', () => {
     });
 
     it('should not create a new link with missing data', (done) => {
-      //fails
       chai.request(server)
         .post('/api/v1/links')
         .send({
           clicks: 0
         })
         .end((error, response) => {
-          //returns a 422
           console.log(response.error.text)
           response.should.have.status(422);
           response.error.text.should.equal('Missing url');
