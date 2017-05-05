@@ -1,3 +1,5 @@
+/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
+
 const addFolder = () => {
   const newFolderName = $('#new-folder-name').val();
   const currentOptions = $('#link-folder-dropdown').children().toArray().map(item => {
@@ -14,7 +16,6 @@ const addFolder = () => {
         })
     }).then((response) => {
       response.json().then((data) => {
-        console.log(data);
         $('#link-folder-dropdown').append(`<option value=${data.id}>${data.name}</option>`);
       })
     }).catch(err => console.log(err))
@@ -41,7 +42,6 @@ const addURL = () => {
   })
 }
 
-/////HELPERS HERE! @#$%@#$%@#$%@#$%@$%@$%@#$%@#$%@#$5
 const convertIdToUrl = (id) => {
   const urlBase = 'http://localhost:3000/';
   return urlBase + id.toString(32);
@@ -50,7 +50,7 @@ const convertIdToUrl = (id) => {
 const splitDate = (date) => {
   let dateArray = date.split('T');
   let dateBreakdown = dateArray[0].split('-');
-  
+
   let year = dateBreakdown.shift();
   dateBreakdown.push(year);
   let dateString = dateBreakdown.join('/');
@@ -64,11 +64,11 @@ const refreshLinkDisplay = (folderID) => {
         $('.link-wrapper').empty()
         json.forEach((link) => {
           $('.link-wrapper').prepend(`
-            <article class="link-card">
+            <article class="link-card" clicks="${link.clicks}">
             <p>${link.longURL}</p>
             <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
             <div>
-            <p>Added ${splitDate(link.created_at)}</p>
+            <p class="date-added">Added ${splitDate(link.created_at)}</p>
             <p>${link.clicks} Visits</p>
             </div>
             </article>
@@ -77,6 +77,13 @@ const refreshLinkDisplay = (folderID) => {
       })
     })
 };
+
+const populateFolderOptions = (options) => {
+  const select = $('#link-folder-dropdown');
+  options.forEach((folder) => {
+    select.append(`<option value=${folder.id}>${folder.name}</option>`)
+  });
+}
 
 $('#add-folder-btn').on('click', function(e) {
   e.preventDefault();
@@ -95,12 +102,58 @@ $('#link-folder-dropdown').on('change', function(e)  {
   refreshLinkDisplay(folderID);
 });
 
-const populateFolderOptions = (options) => {
-  const select = $('#link-folder-dropdown');
-  options.forEach((folder) => {
-    select.append(`<option value=${folder.id}>${folder.name}</option>`)
-  });
-}
+$('#sort-clicks').on('click', () => {
+  const kids= $('.link-wrapper').children()
+  $('.link-wrapper').empty()
+
+  kids.sort((a, b) => {
+    return $(a)[0].attributes.clicks.value > $(b)[0].attributes.clicks.value
+  })
+
+  kids.each(function () {
+    $('.link-wrapper').prepend(this)
+  })
+})
+
+$('#sort-clicks').on('click', () => {
+  const kids= $('.link-wrapper').children()
+  $('.link-wrapper').empty()
+
+  kids.sort((a, b) => {
+    return $(a)[0].attributes.clicks.value > $(b)[0].attributes.clicks.value
+  })
+
+  kids.each(function () {
+    $('.link-wrapper').prepend(this)
+  })
+})
+
+$('#sort-date').on('click', () => {
+  const kids= $('.link-wrapper').children()
+  $('.link-wrapper').empty()
+
+  kids.sort((a, b) => {
+    const aDateArray = $(a).find('.date-added').text().split(' ')[1].split('/')
+    const bDateArray = $(b).find('.date-added').text().split(' ')[1].split('/')
+    //year sortable?
+    if(aDateArray[2] > bDateArray[2]) {
+      return true
+    }
+    //month sortable?
+    if(aDateArray[0] > bDateArray[0]) {
+      return true
+    }
+    //day sortable?
+    if(aDateArray[1] > bDateArray[1]) {
+      return true
+    }
+    return false
+  })
+
+  kids.each(function () {
+    $('.link-wrapper').prepend(this)
+  })
+})
 
 $(document).ready(() => {
   fetch('/api/v1/folders')
@@ -108,6 +161,9 @@ $(document).ready(() => {
       response.json()
       .then(json => {
         populateFolderOptions(json)
+      })
+      .then(() => {
+        refreshLinkDisplay($('#link-folder-dropdown').val())
       })
     });
 });

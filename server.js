@@ -82,7 +82,7 @@ app.get('/:shortID', (request, response) => {
       response.redirect('http://' + url)
       /// May need to revist the text input handling here
     })
-    
+
   database('links').where('id', actualID).select()
     .then((link) => {
       let newCount = link[0].clicks + 1;
@@ -90,7 +90,7 @@ app.get('/:shortID', (request, response) => {
         .where('id', actualID)
         .update('clicks', newCount)
         .catch((error) => {
-          console.log(error);
+          console.log(error); 
         })
     })
 })
