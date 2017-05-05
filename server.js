@@ -42,7 +42,6 @@ app.post('/api/v1/links', (request, response) => {
   const { folderID, newURL } = request.body
   database('links').insert({
     longURL: newURL,
-    shortURL: null,
     clicks: 0,
     folder_id: folderID,
   }, 'id').then((id) => {

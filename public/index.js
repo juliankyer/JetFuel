@@ -1,4 +1,3 @@
-
 const addFolder = () => {
   const newFolderName = $('#new-folder-name').val();
   const currentOptions = $('#link-folder-dropdown').children().toArray().map(item => {
@@ -48,6 +47,16 @@ const convertIdToUrl = (id) => {
   return urlBase + id.toString(32);
 }
 
+const splitDate = (date) => {
+  let dateArray = date.split('T');
+  let dateBreakdown = dateArray[0].split('-');
+  
+  let year = dateBreakdown.shift();
+  dateBreakdown.push(year);
+  let dateString = dateBreakdown.join('/');
+  return dateString;
+}
+
 const refreshLinkDisplay = (folderID) => {
   fetch(`/api/v1/folders/${folderID}`)
     .then((response) => {
@@ -59,7 +68,7 @@ const refreshLinkDisplay = (folderID) => {
             <p>${link.longURL}</p>
             <a href="${convertIdToUrl(link.id)}" target="_blank">${convertIdToUrl(link.id)}</a>
             <div>
-            <p>Added 5/1/2017</p>
+            <p>Added ${splitDate(link.created_at)}</p>
             <p>${link.clicks} Visits</p>
             </div>
             </article>
