@@ -46,6 +46,9 @@ app.post('/api/v1/links', (request, response) => {
     folder_id: folderID,
   }, 'id').then((id) => {
     response.status(201).json(id)
+  })
+  .catch((error) => {
+    console.log('WE NEED  A BETTER ERROR');
   });
 });
 
