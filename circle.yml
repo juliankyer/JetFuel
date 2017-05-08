@@ -5,3 +5,12 @@ machine:
     version: 7.9.0
   environment:
     DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/circle_test
+depoloyment:
+  staging:
+    branch: staging
+    heroku:
+      appname: jk-jetfuel-staging
+  production:
+    branch: master
+    heroku:
+      appname: jkjetfuel
