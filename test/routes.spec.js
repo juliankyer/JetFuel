@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 const server = require('../server');
 require('locus');
 
-const knexConfig = require('../knexfile.js')['development']
+const knexConfig = require('../knexfile.js')['test']
 const knex = require('knex')(knexConfig)
 
 chai.use(chaiHttp);
